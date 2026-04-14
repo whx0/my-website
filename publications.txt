@@ -1,0 +1,39 @@
+Leveraging Temporal Down-sampling Structure and Spatio-Temporal Fusion for Efficient Video Coding
+https://www.mdpi.com/1424-8220/26/5/1522
+Keren He, Yufei Gao, Qi Wang, Haixin Wang, Jinjia Zhou
+
+NuclSeg-v2.0: Nuclei Segmentation using Semi-supervised Stain Deconvolution with Real-time User Feedback
+https://www.sciencedirect.com/science/article/abs/pii/S0031320325014864
+Haixin Wang, Jian Yang, Ryohei Katayama, Michiya Matusaki, Tomoyuki Miyao, Ying Li, Jinjia Zhou
+
+Harmony Score-Guided Inpainting: Iterative Refinement for Seamless Image Inpainting
+https://www.sciencedirect.com/science/article/abs/pii/S092523122501673X
+Haixin Wang, Jian Yang, Jinjia Zhou
+
+Efficient Cell Segmentation and Classification by Leveraging an Auto Prompt Generator and a New Fine-Tuning Strategy
+https://ieeexplore.ieee.org/abstract/document/11043565/
+Lee Jeongahn, Wang Haixin, and Zhou Jinjia
+
+ASAUN-CS: Adaptive Stage Activated Unfolding Network for Compressive Sensing
+https://ieeexplore.ieee.org/abstract/document/10557871
+Jian Yang, Kun Xiang, Haixin Wang, Yibo Fan, and Jinjia Zhou
+
+An Iterative Image Inpainting Method Using Mask Shrinking
+https://ieeexplore.ieee.org/abstract/document/10557867
+Matano Haruka, Haixin Wang, Jinjia Zhou
+
+aVCSR: Adaptive Video Compressive Sensing using Region-of-Interest Detection in the Compressed Domain
+https://dl.acm.org/doi/10.1109/MMUL.2023.3342062
+Jian Yang, Haixin Wang, Ittetsu Taniguchi, Yibo Fan, and Jinjia Zhou
+
+NuclSeg: nuclei segmentation using semi-supervised stain deconvolution
+https://dl.acm.org/doi/abs/10.1145/3595916.3626392
+Haixin Wang, Jian Yang, Ryohei Katayama, Michiya Matsusaki, Tomoyuki Miyao, and Jinjia Zhou
+
+VCSL: Video Compressive Sensing with Low-complexity ROI Detection in Compressed Domain
+https://ieeexplore.ieee.org/abstract/document/10125309
+Jian Yang, Haixin Wang, Yibo Fan, and Jinjia Zhou
+
+Hierarchical down-sampling based ultra high-resolution image inpainting
+https://link.springer.com/chapter/10.1007/978-3-031-30111-7_28
+Haixin Wang, Jian Yang and Jinjia Zhou

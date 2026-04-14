@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(nkf -g profile.txt)",
+      "Bash(python3 -c ':*)"
+    ]
+  }
+}

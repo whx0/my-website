@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wang Haixin | Academic Profile</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:     #100d08;
+  --purple: #e8a045;   /* amber-gold  */
+  --blue:   #c97b55;   /* terracotta  */
+  --pink:   #e8b4a0;   /* dusty rose  */
+  --cyan:   #d4a853;   /* warm gold   */
+  --green:  #8aab96;   /* sage        */
+  --yellow: #f0c96a;   /* warm yellow */
+  --text:   #faf5eb;   /* warm cream  */
+  --muted:  #c8aa88;   /* warm tan    */
+  --card:   rgba(232,160,69,0.08);
+  --border: rgba(232,160,69,0.22);
+  --border2:rgba(250,245,235,0.09);
+  --glow:   rgba(232,160,69,0.38);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Inter',sans-serif;
+  background-color:var(--bg);
+  color:var(--text);
+  overflow-x:hidden;
+  min-height:100vh;
+}
+body::before{
+  content:'';
+  position:fixed;inset:0;
+  background-image:
+    linear-gradient(rgba(232,160,69,0.03) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(232,160,69,0.03) 1px,transparent 1px);
+  background-size:60px 60px;
+  pointer-events:none;
+  z-index:0;
+}
+body::after{
+  content:'';
+  position:fixed;inset:0;
+  background:
+    radial-gradient(ellipse 60% 50% at 0% 0%,  rgba(210,120,50,0.14) 0%,transparent 60%),
+    radial-gradient(ellipse 50% 60% at 100% 100%,rgba(232,160,69,0.10) 0%,transparent 60%),
+    radial-gradient(ellipse 40% 40% at 50% 100%,rgba(200,90,60,0.08)  0%,transparent 55%);
+  pointer-events:none;
+  z-index:0;
+}
+
+/* ===== LOADER ===== */
+#loader{
+  position:fixed;inset:0;z-index:9999;
+  background:#100d08;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  overflow:hidden;
+}
+#loader-canvas{position:absolute;inset:0;width:100%;height:100%;}
+.scan-line{
+  position:absolute;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,rgba(232,160,69,0.7),rgba(240,201,106,0.5),transparent);
+  animation:scanLine 2.5s linear infinite;
+  z-index:1;
+}
+@keyframes scanLine{0%{top:-2px;}100%{top:100%;}}
+.loader-content{
+  position:relative;z-index:2;
+  display:flex;flex-direction:column;
+  align-items:center;gap:20px;
+}
+.loader-emblem{
+  width:80px;height:80px;
+  border:2px solid var(--purple);
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Playfair Display',serif;
+  font-size:28px;font-weight:900;
+  color:var(--purple);
+  box-shadow:0 0 30px var(--glow),inset 0 0 20px rgba(232,160,69,0.12);
+  animation:emblemAppear 0.6s cubic-bezier(.34,1.56,.64,1) 0.3s both;
+}
+@keyframes emblemAppear{
+  from{transform:scale(0) rotate(-180deg);opacity:0;}
+  to{transform:scale(1) rotate(0deg);opacity:1;}
+}
+.loader-name{
+  font-family:'Playfair Display',serif;
+  font-size:36px;font-weight:900;
+  background:linear-gradient(135deg,var(--yellow),var(--purple),var(--blue));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+  clip-path:inset(0 100% 0 0);
+  animation:nameReveal 0.7s cubic-bezier(.77,0,.18,1) 0.9s forwards;
+}
+@keyframes nameReveal{to{clip-path:inset(0 0% 0 0);}}
+.loader-ja{
+  font-size:16px;color:var(--muted);
+  opacity:0;
+  animation:fadeIn 0.5s ease 1.6s forwards;
+}
+.loader-sub{
+  font-size:13px;color:rgba(200,170,136,0.7);letter-spacing:2px;text-transform:uppercase;
+  opacity:0;
+  animation:fadeIn 0.5s ease 1.9s forwards;
+}
+@keyframes fadeIn{to{opacity:1;}}
+.loader-progress-wrap{
+  width:280px;height:3px;
+  background:rgba(232,160,69,0.18);
+  border-radius:99px;
+  margin-top:10px;
+  opacity:0;
+  animation:fadeIn 0.4s ease 2.1s forwards;
+}
+.loader-progress{
+  height:100%;width:0%;
+  background:linear-gradient(90deg,var(--blue),var(--purple),var(--yellow));
+  border-radius:99px;
+  box-shadow:0 0 12px var(--glow);
+  transition:width 0.05s linear;
+}
+.loader-percent{
+  font-size:12px;color:var(--purple);
+  margin-top:6px;
+  opacity:0;
+  animation:fadeIn 0.4s ease 2.1s forwards;
+}
+.loader-panels{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;
+  pointer-events:none;
+}
+.loader-panel{
+  flex:1;
+  transform:translateX(-100%);
+  transition:transform 0.35s cubic-bezier(.77,0,.18,1);
+}
+.loader-panel.sweep-in{transform:translateX(0);}
+.loader-panel.sweep-out{transform:translateX(100%);}
+
+/* ===== LANG CURTAIN ===== */
+#lang-curtain{
+  position:fixed;inset:0;z-index:8888;
+  background:linear-gradient(135deg,var(--blue),var(--purple),var(--yellow));
+  transform:translateY(-100%);
+  pointer-events:none;
+}
+#lang-curtain.curtain-down{
+  animation:curtainDown 0.28s cubic-bezier(.77,0,.18,1) forwards;
+}
+#lang-curtain.curtain-up{
+  animation:curtainUp 0.28s cubic-bezier(.77,0,.18,1) forwards;
+}
+@keyframes curtainDown{from{transform:translateY(-100%);}to{transform:translateY(0);}}
+@keyframes curtainUp{from{transform:translateY(0);}to{transform:translateY(-100%);}}
+
+/* ===== FLOATING ORBS ===== */
+.orb{
+  position:fixed;border-radius:50%;
+  filter:blur(80px);pointer-events:none;z-index:1;opacity:0.35;
+}
+.orb1{
+  width:420px;height:420px;
+  background:radial-gradient(circle,rgba(210,120,50,0.55),transparent);
+  top:-120px;left:-100px;
+  animation:orbFloat1 14s ease-in-out infinite;
+}
+.orb2{
+  width:360px;height:360px;
+  background:radial-gradient(circle,rgba(232,160,69,0.45),transparent);
+  bottom:-80px;right:-80px;
+  animation:orbFloat2 16s ease-in-out infinite;
+}
+.orb3{
+  width:280px;height:280px;
+  background:radial-gradient(circle,rgba(200,100,70,0.35),transparent);
+  top:45%;left:58%;
+  animation:orbFloat3 11s ease-in-out infinite;
+}
+@keyframes orbFloat1{0%,100%{transform:translate(0,0);}50%{transform:translate(60px,40px);}}
+@keyframes orbFloat2{0%,100%{transform:translate(0,0);}50%{transform:translate(-50px,-30px);}}
+@keyframes orbFloat3{0%,100%{transform:translate(0,0);}33%{transform:translate(-40px,30px);}66%{transform:translate(40px,-20px);}}
+
+/* ===== MAIN STARFIELD CANVAS ===== */
+#main-canvas{
+  position:fixed;inset:0;width:100%;height:100%;
+  pointer-events:none;z-index:1;opacity:0.5;
+}
+
+/* ===== NAV ===== */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  padding:0 40px;height:64px;
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(16,13,8,0.78);
+  backdrop-filter:blur(18px);
+  border-bottom:1px solid var(--border2);
+}
+.nav-logo{
+  font-family:'Playfair Display',serif;
+  font-size:20px;font-weight:700;
+  background:linear-gradient(135deg,var(--purple),var(--blue));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+  cursor:pointer;text-decoration:none;
+}
+.nav-links{display:flex;gap:32px;align-items:center;list-style:none;}
+.nav-links a{
+  color:rgba(255,255,255,0.7);text-decoration:none;
+  font-size:14px;font-weight:500;
+  transition:color 0.2s;letter-spacing:0.5px;
+}
+.nav-links a:hover{color:var(--purple);}
+.nav-right{display:flex;align-items:center;gap:12px;}
+.lang-btn{
+  background:none;border:1px solid var(--border);color:var(--muted);
+  padding:4px 10px;border-radius:6px;font-size:12px;font-weight:600;
+  cursor:pointer;transition:all 0.2s;font-family:'Inter',sans-serif;
+}
+.lang-btn:hover,.lang-btn.active{background:var(--purple);border-color:var(--purple);color:#fff;}
+
+/* ===== SECTIONS ===== */
+section{position:relative;z-index:10;padding:100px 0;}
+.container{max-width:1100px;margin:0 auto;padding:0 40px;}
+.section-title{
+  font-family:'Playfair Display',serif;
+  font-size:42px;font-weight:900;
+  background:linear-gradient(135deg,var(--yellow),var(--purple),var(--blue));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+  margin-bottom:16px;line-height:1.2;
+}
+.section-sub{color:var(--muted);font-size:14px;letter-spacing:2px;text-transform:uppercase;margin-bottom:48px;}
+.section-divider{width:60px;height:3px;background:linear-gradient(90deg,var(--purple),var(--blue));border-radius:99px;margin-bottom:16px;}
+
+/* Fade-in */
+.fade-in{opacity:0;transform:translateY(30px);transition:opacity 0.6s ease,transform 0.6s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+
+/* ===== HERO ===== */
+#hero{
+  min-height:100vh;display:flex;align-items:center;
+  padding-top:64px;position:relative;overflow:hidden;
+  background:url('home.png') center/cover no-repeat;
+}
+#hero::before{
+  content:'';position:absolute;inset:0;z-index:1;
+  background:
+    linear-gradient(to right,
+      rgba(16,13,8,0.93) 0%,
+      rgba(16,13,8,0.82) 35%,
+      rgba(16,13,8,0.50) 60%,
+      rgba(16,13,8,0.12) 100%),
+    linear-gradient(to top,
+      rgba(16,13,8,0.80) 0%,
+      transparent 50%);
+}
+.hero-inner{
+  position:relative;z-index:2;padding:0 40px;max-width:1100px;margin:0 auto;width:100%;
+}
+.hero-text{max-width:580px;}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(232,160,69,0.12);border:1px solid var(--border);
+  border-radius:99px;padding:6px 16px;font-size:13px;color:var(--muted);
+  margin-bottom:24px;animation:fadeInUp 0.6s ease 0.2s both;
+}
+.hero-badge-dot{
+  width:8px;height:8px;border-radius:50%;background:var(--green);
+  box-shadow:0 0 8px var(--green);animation:pulse 2s ease infinite;
+}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.4;}}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+.hero-name{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(48px,7vw,90px);font-weight:900;line-height:1.05;
+  background:linear-gradient(135deg,var(--text) 0%,var(--yellow) 30%,var(--purple) 65%,var(--blue) 100%);
+  background-size:300% 300%;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  animation:fadeInUp 0.7s ease 0.4s both, shimmer 5s linear 1.5s infinite;
+  margin-bottom:8px;
+}
+@keyframes shimmer{0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
+.hero-ja{font-size:22px;color:var(--muted);margin-bottom:20px;animation:fadeInUp 0.7s ease 0.6s both;letter-spacing:2px;}
+.hero-title{font-size:18px;color:var(--blue);font-weight:500;margin-bottom:12px;animation:fadeInUp 0.7s ease 0.8s both;}
+.hero-sub{
+  font-size:15px;color:rgba(255,255,255,0.6);max-width:560px;line-height:1.7;
+  margin-bottom:40px;animation:fadeInUp 0.7s ease 1.0s both;
+}
+.hero-btns{display:flex;gap:16px;flex-wrap:wrap;animation:fadeInUp 0.7s ease 1.2s both;margin-bottom:60px;}
+.btn-primary{
+  display:inline-flex;align-items:center;gap:8px;
+  background:linear-gradient(135deg,var(--purple),var(--blue));color:#fff;
+  padding:12px 28px;border-radius:12px;font-size:14px;font-weight:600;
+  text-decoration:none;border:none;cursor:pointer;
+  transition:transform 0.2s,box-shadow 0.2s;
+  box-shadow:0 4px 20px rgba(232,160,69,0.4);
+}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(232,160,69,0.6);}
+.btn-secondary{
+  display:inline-flex;align-items:center;gap:8px;
+  background:transparent;border:1px solid var(--border);color:var(--muted);
+  padding:12px 28px;border-radius:12px;font-size:14px;font-weight:600;
+  text-decoration:none;cursor:pointer;transition:all 0.2s;
+}
+.btn-secondary:hover{background:var(--card);border-color:var(--purple);color:var(--purple);}
+.hero-stats{display:flex;gap:40px;flex-wrap:wrap;animation:fadeInUp 0.7s ease 1.4s both;}
+.stat-item{display:flex;flex-direction:column;gap:4px;}
+.stat-num{
+  font-family:'Playfair Display',serif;font-size:36px;font-weight:900;
+  background:linear-gradient(135deg,var(--yellow),var(--purple));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.stat-label{font-size:12px;color:rgba(255,255,255,0.5);letter-spacing:1px;text-transform:uppercase;}
+.hero-float{position:absolute;pointer-events:none;z-index:1;}
+.hero-float-1{
+  right:5%;top:20%;width:300px;height:300px;
+  background:radial-gradient(circle,rgba(232,160,69,0.12),transparent);
+  border-radius:50%;animation:heroFloat 6s ease-in-out infinite;
+}
+.hero-float-2{
+  right:15%;bottom:15%;width:200px;height:200px;
+  background:radial-gradient(circle,rgba(201,123,85,0.1),transparent);
+  border-radius:50%;animation:heroFloat 8s ease-in-out infinite reverse;
+}
+@keyframes heroFloat{0%,100%{transform:translateY(0);}50%{transform:translateY(-20px);}}
+.scroll-indicator{
+  position:absolute;bottom:40px;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:8px;z-index:2;
+  animation:fadeInUp 0.7s ease 2s both;
+}
+.scroll-line{width:1px;height:40px;background:linear-gradient(to bottom,var(--purple),transparent);animation:scrollBounce 2s ease-in-out infinite;}
+.scroll-text{font-size:11px;color:rgba(255,255,255,0.4);letter-spacing:2px;text-transform:uppercase;}
+@keyframes scrollBounce{0%,100%{transform:scaleY(1);}50%{transform:scaleY(0.6);}}
+
+/* ===== ABOUT ===== */
+#about .about-grid{display:grid;grid-template-columns:200px 1fr;gap:60px;align-items:start;}
+.about-photo-wrap{display:flex;flex-direction:column;align-items:center;gap:16px;}
+.about-photo{
+  width:200px;height:200px;object-fit:cover;
+  border-radius:20px;border:2px solid var(--border);
+  box-shadow:0 0 30px var(--glow),0 0 60px rgba(210,120,50,0.2);
+  transition:transform 0.4s cubic-bezier(.34,1.56,.64,1),box-shadow 0.4s;cursor:pointer;
+}
+.about-photo:hover{transform:scale(1.04) rotate(2deg);box-shadow:0 0 50px var(--glow),0 0 100px rgba(210,120,50,0.3);}
+.about-photo-label{font-size:13px;color:var(--muted);text-align:center;letter-spacing:1px;}
+.about-bio p{color:rgba(255,255,255,0.75);line-height:1.85;font-size:15px;margin-bottom:18px;}
+
+
+/* ===== EDUCATION ===== */
+#education .timeline{position:relative;padding-left:40px;}
+#education .timeline::before{
+  content:'';position:absolute;left:12px;top:0;bottom:0;width:2px;
+  background:linear-gradient(to bottom,var(--purple),var(--blue),var(--cyan));border-radius:99px;
+}
+.timeline-item{position:relative;margin-bottom:40px;}
+.timeline-dot{position:absolute;left:-34px;top:6px;width:12px;height:12px;border-radius:50%;background:var(--purple);box-shadow:0 0 12px var(--purple);border:2px solid var(--bg);}
+.timeline-year{font-size:12px;color:var(--cyan);font-weight:600;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;}
+.timeline-degree{font-size:18px;font-weight:700;color:var(--text);margin-bottom:4px;}
+.timeline-school{font-size:14px;color:var(--muted);}
+.timeline-badge{display:inline-block;background:rgba(232,160,69,0.10);border:1px solid var(--border);border-radius:99px;padding:2px 10px;font-size:11px;color:var(--purple);margin-top:6px;}
+
+/* ===== SKILLS ===== */
+#skills .skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:60px;}
+.skill-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px;transition:transform 0.2s,box-shadow 0.2s,border-color 0.2s;}
+.skill-card:hover{transform:translateY(-4px);box-shadow:0 8px 30px var(--glow);border-color:var(--purple);}
+.skill-card-title{font-size:14px;font-weight:600;color:var(--purple);letter-spacing:1px;text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:8px;}
+.skill-card-icon{font-size:18px;}
+.skill-tags{display:flex;flex-wrap:wrap;gap:8px;}
+.skill-tag{background:rgba(255,255,255,0.06);border:1px solid var(--border2);color:rgba(255,255,255,0.8);padding:4px 12px;border-radius:99px;font-size:12px;font-weight:500;transition:all 0.2s;}
+.skill-tag:hover{background:rgba(232,160,69,0.14);border-color:var(--purple);color:var(--purple);}
+.skill-tag-more{background:transparent;border:1px dashed var(--cyan);color:var(--cyan);padding:4px 12px;border-radius:99px;font-size:12px;font-weight:600;}
+.featured-title{font-size:22px;font-weight:700;color:var(--text);margin-bottom:24px;}
+.featured-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.featured-card{
+  background:var(--card);border:1px solid var(--border);border-radius:16px;padding:24px;
+  text-decoration:none;display:flex;flex-direction:column;gap:10px;
+  transition:transform 0.2s,box-shadow 0.2s,border-color 0.2s;
+  cursor:pointer;position:relative;overflow:hidden;
+}
+.featured-card::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(circle at 50% 0%,var(--accent-color,var(--purple)) 0%,transparent 70%);
+  opacity:0;transition:opacity 0.3s;
+}
+.featured-card:hover::before{opacity:0.08;}
+.featured-card:hover{transform:translateY(-6px);border-color:var(--accent-color,var(--purple));box-shadow:0 12px 40px rgba(0,0,0,0.3);}
+.featured-emoji{font-size:28px;}
+.featured-name{font-size:16px;font-weight:700;color:var(--text);}
+.featured-desc{font-size:13px;color:rgba(255,255,255,0.55);line-height:1.5;flex:1;}
+.featured-link{font-size:12px;font-weight:600;transition:color 0.2s;}
+
+/* ===== PUBLICATIONS ===== */
+#publications .pub-filters{display:flex;gap:12px;margin-bottom:32px;flex-wrap:wrap;}
+.pub-filter-btn{
+  background:none;border:1px solid var(--border);color:var(--muted);
+  padding:8px 20px;border-radius:99px;font-size:13px;font-weight:600;
+  cursor:pointer;transition:all 0.2s;font-family:'Inter',sans-serif;
+}
+.pub-filter-btn:hover{border-color:var(--purple);color:var(--purple);}
+.pub-filter-btn.active{background:linear-gradient(135deg,var(--purple),var(--blue));border-color:transparent;color:#fff;box-shadow:0 4px 15px rgba(232,160,69,0.4);}
+.pub-list{display:flex;flex-direction:column;gap:12px;}
+.pub-card{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;transition:border-color 0.2s,box-shadow 0.2s;}
+.pub-card:hover{border-color:var(--purple);}
+.pub-card.open{box-shadow:0 0 20px rgba(232,160,69,0.14);border-color:var(--purple);}
+.pub-header{padding:20px 24px;cursor:pointer;display:flex;align-items:flex-start;gap:16px;}
+.pub-num{font-family:'Playfair Display',serif;font-size:24px;font-weight:900;color:rgba(232,160,69,0.4);flex-shrink:0;line-height:1;min-width:28px;}
+.pub-main{flex:1;}
+.pub-badges{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px;}
+.badge{padding:2px 10px;border-radius:99px;font-size:11px;font-weight:600;letter-spacing:0.5px;}
+.badge-journal{background:rgba(232,160,69,0.18);color:var(--purple);border:1px solid rgba(232,160,69,0.38);}
+.badge-conf{background:rgba(201,123,85,0.18);color:var(--blue);border:1px solid rgba(201,123,85,0.38);}
+.badge-peer{background:rgba(138,171,150,0.18);color:var(--green);border:1px solid rgba(138,171,150,0.35);}
+.pub-title{font-size:15px;font-weight:600;color:var(--text);line-height:1.5;margin-bottom:6px;}
+.pub-venue{font-size:13px;color:rgba(255,255,255,0.5);}
+.pub-year{font-size:13px;font-weight:600;color:var(--cyan);white-space:nowrap;margin-left:auto;padding-left:16px;flex-shrink:0;}
+.pub-expand-icon{width:24px;height:24px;border-radius:50%;background:rgba(232,160,69,0.1);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;transition:transform 0.2s,background 0.2s;font-size:12px;color:var(--muted);}
+.pub-card.open .pub-expand-icon{transform:rotate(180deg);background:rgba(232,160,69,0.2);}
+.pub-body{max-height:0;overflow:hidden;transition:max-height 0.35s cubic-bezier(.77,0,.18,1),padding 0.35s;padding:0 24px;}
+.pub-body.open{max-height:300px;padding:0 24px 20px;}
+.pub-list-enter-active{transition:opacity 0.4s ease,transform 0.4s ease;}
+.pub-list-enter-from{opacity:0;transform:translateY(16px);}
+.pub-list-leave-active{transition:opacity 0.2s ease;}
+.pub-list-leave-to{opacity:0;}
+.pub-authors{font-size:13px;color:rgba(255,255,255,0.6);line-height:1.7;margin-bottom:14px;}
+.pub-authors strong{color:var(--purple);font-weight:600;}
+.pub-view-link{
+  display:inline-flex;align-items:center;gap:6px;
+  background:linear-gradient(135deg,var(--blue),var(--purple));color:#1a1008;
+  padding:7px 18px;border-radius:8px;font-size:13px;font-weight:700;
+  text-decoration:none;transition:opacity 0.2s,transform 0.2s;
+  box-shadow:0 2px 12px rgba(232,160,69,0.35);
+}
+.pub-view-link:hover{opacity:0.9;transform:translateY(-1px);}
+
+/* ===== INTERESTS ===== */
+#interests .hobby-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;}
+.hobby-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px 16px;text-align:center;transition:transform 0.2s,box-shadow 0.2s,border-color 0.2s;}
+.hobby-card:hover{transform:translateY(-6px);box-shadow:0 8px 25px rgba(232,160,69,0.2);border-color:var(--purple);}
+.hobby-emoji{font-size:28px;margin-bottom:8px;}
+.hobby-label{font-size:13px;color:rgba(255,255,255,0.7);font-weight:500;}
+
+/* ===== FOOTER ===== */
+footer{position:relative;z-index:10;border-top:1px solid var(--border2);padding:32px 40px;text-align:center;color:rgba(255,255,255,0.4);font-size:13px;}
+
+/* ===== TILT ===== */
+.tilt-card{transform-style:preserve-3d;}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:900px){
+  #about .about-grid{grid-template-columns:1fr;text-align:center;}
+  .about-photo-wrap{margin:0 auto;}
+  #skills .skills-grid{grid-template-columns:1fr;}
+  .featured-grid{grid-template-columns:repeat(2,1fr);}
+  #interests .hobby-grid{grid-template-columns:repeat(3,1fr);}
+}
+@media(max-width:700px){
+  nav{padding:0 20px;}
+  .nav-links{display:none;}
+  .container{padding:0 20px;}
+  section{padding:60px 0;}
+  .section-title{font-size:28px;}
+  .hero-inner{padding:0 20px;}
+  .hero-stats{gap:24px;}
+  .stat-num{font-size:28px;}
+  .featured-grid{grid-template-columns:1fr;}
+  #interests .hobby-grid{grid-template-columns:repeat(2,1fr);}
+  footer{padding:24px 20px;}
+}
+</style>
+</head>
+<body>
+
+<!-- Loader -->
+<div id="loader">
+  <canvas id="loader-canvas"></canvas>
+  <div class="scan-line"></div>
+  <div class="loader-content">
+    <div class="loader-emblem">WH</div>
+    <div class="loader-name">Wang Haixin</div>
+    <div class="loader-ja">佐藤 海来 / 王 海鑫</div>
+    <div class="loader-sub">Image Processing · Computer Vision</div>
+    <div class="loader-progress-wrap">
+      <div class="loader-progress" id="loader-bar"></div>
+    </div>
+    <div class="loader-percent" id="loader-pct">0%</div>
+  </div>
+  <div class="loader-panels" id="loader-panels">
+    <div class="loader-panel" style="background:#b45309;"></div>
+    <div class="loader-panel" style="background:#92400e;"></div>
+    <div class="loader-panel" style="background:#c2410c;"></div>
+    <div class="loader-panel" style="background:#a16207;"></div>
+    <div class="loader-panel" style="background:#78350f;"></div>
+  </div>
+</div>
+
+<!-- Lang curtain -->
+<div id="lang-curtain"></div>
+
+<!-- App -->
+<div id="app" style="opacity:0;transition:opacity 0.4s;">
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
+  <canvas id="main-canvas"></canvas>
+
+  <!-- Nav -->
+  <nav>
+    <a href="#hero" class="nav-logo">W. Haixin</a>
+    <ul class="nav-links">
+      <li><a href="#about">{{ t.nav_about }}</a></li>
+      <li><a href="#education">{{ t.nav_edu }}</a></li>
+      <li><a href="#skills">{{ t.nav_skills }}</a></li>
+      <li><a href="#publications">{{ t.nav_pub }}</a></li>
+      <li><a href="#interests">{{ t.nav_interests }}</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="lang-btn" :class="{active:lang==='ja'}" @click="switchLang('ja')">JA</button>
+      <button class="lang-btn" :class="{active:lang==='en'}" @click="switchLang('en')">EN</button>
+      <button class="lang-btn" :class="{active:lang==='cn'}" @click="switchLang('cn')">CN</button>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section id="hero">
+    <div class="hero-float hero-float-1" id="hf1"></div>
+    <div class="hero-float hero-float-2" id="hf2"></div>
+    <div class="hero-inner">
+      <div class="hero-text">
+        <div class="hero-badge">
+          <span class="hero-badge-dot"></span>
+          {{ t.hero_badge }}
+        </div>
+        <h1 class="hero-name">Wang Haixin</h1>
+        <div class="hero-ja">佐藤 海来 / 王 海鑫</div>
+        <div class="hero-title">{{ t.hero_title }}</div>
+        <p class="hero-sub">{{ t.hero_sub }}</p>
+        <div class="hero-btns">
+          <a href="https://scholar.google.co.jp/citations?user=D3EGKNcAAAAJ&hl=ja" target="_blank" class="btn-primary">
+            <span>🎓</span> {{ t.btn_scholar }}
+          </a>
+          <a href="#publications" class="btn-secondary">
+            <span>📄</span> {{ t.btn_pubs }}
+          </a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat-item">
+            <span class="stat-num" data-target="10" data-suffix="+">0</span>
+            <span class="stat-label">{{ t.stat_pubs }}</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-num" data-target="6" data-suffix="+">0</span>
+            <span class="stat-label">{{ t.stat_years }}</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-num" data-target="3" data-suffix="">0</span>
+            <span class="stat-label">{{ t.stat_lang }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="scroll-indicator">
+      <span class="scroll-text">SCROLL</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about">
+    <div class="container">
+      <div class="section-divider fade-in"></div>
+      <h2 class="section-title fade-in">{{ t.about_title }}</h2>
+      <p class="section-sub fade-in">{{ t.about_sub }}</p>
+      <div class="about-grid">
+        <div class="about-photo-wrap fade-in">
+          <img src="profile_me.png" alt="Wang Haixin" class="about-photo">
+          <div class="about-photo-label">Wang Haixin/Sato Mirai<br>王 海鑫/佐藤 海来</div>
+        </div>
+        <div class="about-bio">
+          <p class="fade-in">{{ t.bio1 }}</p>
+          <p class="fade-in">{{ t.bio2 }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Education -->
+  <section id="education">
+    <div class="container">
+      <div class="section-divider fade-in"></div>
+      <h2 class="section-title fade-in">{{ t.edu_title }}</h2>
+      <p class="section-sub fade-in">{{ t.edu_sub }}</p>
+      <div class="timeline">
+        <div class="timeline-item fade-in" v-for="e in t.education" :key="e.year">
+          <div class="timeline-dot"></div>
+          <div class="timeline-year">{{ e.year }}</div>
+          <div class="timeline-degree">{{ e.degree }}</div>
+          <div class="timeline-school">{{ e.school }}</div>
+          <span class="timeline-badge">{{ e.badge }}</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section id="skills">
+    <div class="container">
+      <div class="section-divider fade-in"></div>
+      <h2 class="section-title fade-in">{{ t.skills_title }}</h2>
+      <p class="section-sub fade-in">{{ t.skills_sub }}</p>
+      <div class="skills-grid">
+        <div class="skill-card tilt-card fade-in" v-for="cat in t.skillCats" :key="cat.title">
+          <div class="skill-card-title">
+            <span class="skill-card-icon">{{ cat.icon }}</span>
+            {{ cat.title }}
+          </div>
+          <div class="skill-tags">
+            <span class="skill-tag" v-for="tag in cat.tags" :key="tag">{{ tag }}</span>
+            <span class="skill-tag skill-tag-more">+ {{ t.more }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="fade-in">
+        <div class="featured-title">{{ t.featured_title }}</div>
+        <div class="featured-grid">
+          <a v-for="tool in featuredTools" :key="tool.name"
+             :href="tool.url" target="_blank"
+             class="featured-card tilt-card"
+             :style="{'--accent-color': tool.color}">
+            <div class="featured-emoji">{{ tool.emoji }}</div>
+            <div class="featured-name">{{ tool.name }}</div>
+            <div class="featured-desc">{{ tool.desc }}</div>
+            <div class="featured-link" :style="{color:tool.color}">{{ tool.url.replace('https://','') }} →</div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Publications -->
+  <section id="publications">
+    <div class="container">
+      <div class="section-divider fade-in"></div>
+      <h2 class="section-title fade-in">{{ t.pub_title }}</h2>
+      <p class="section-sub fade-in">{{ t.pub_sub }}</p>
+      <div class="pub-filters fade-in">
+        <button class="pub-filter-btn" :class="{active:pubFilter==='all'}" @click="pubFilter='all'">
+          {{ t.filter_all }} {{ publications.length }}
+        </button>
+        <button class="pub-filter-btn" :class="{active:pubFilter==='journal'}" @click="pubFilter='journal'">
+          {{ t.filter_journal }} {{ publications.filter(p=>p.type==='journal').length }}
+        </button>
+        <button class="pub-filter-btn" :class="{active:pubFilter==='conference'}" @click="pubFilter='conference'">
+          {{ t.filter_conf }} {{ publications.filter(p=>p.type==='conference').length }}
+        </button>
+      </div>
+      <TransitionGroup name="pub-list" tag="div" class="pub-list">
+        <div v-for="(pub,i) in filteredPubs" :key="pub.id"
+             class="pub-card"
+             :class="{open: openPub===pub.id}">
+          <div class="pub-header" @click="togglePub(pub.id)">
+            <div class="pub-num">{{ String(i+1).padStart(2,'0') }}</div>
+            <div class="pub-main">
+              <div class="pub-badges">
+                <span class="badge" :class="pub.type==='journal'?'badge-journal':'badge-conf'">
+                  {{ pub.type==='journal' ? t.badge_journal : t.badge_conf }}
+                </span>
+                <span class="badge badge-peer">✓ {{ t.badge_peer }}</span>
+              </div>
+              <div class="pub-title">{{ pub.title }}</div>
+              <div class="pub-venue">{{ pub.venue }}</div>
+            </div>
+            <div class="pub-year">{{ pub.year }}</div>
+            <div class="pub-expand-icon">▾</div>
+          </div>
+          <div class="pub-body" :class="{open: openPub===pub.id}">
+            <div class="pub-authors" v-html="highlightAuthor(pub.authors)"></div>
+            <a :href="pub.url" target="_blank" class="pub-view-link">
+              🔗 {{ t.view_paper }}
+            </a>
+          </div>
+        </div>
+      </TransitionGroup>
+    </div>
+  </section>
+
+  <!-- Interests -->
+  <section id="interests">
+    <div class="container">
+      <div class="section-divider fade-in"></div>
+      <h2 class="section-title fade-in">{{ t.interests_title }}</h2>
+      <p class="section-sub fade-in">{{ t.interests_sub }}</p>
+      <div class="hobby-grid">
+        <div class="hobby-card tilt-card fade-in" v-for="h in t.hobbies" :key="h.label">
+          <div class="hobby-emoji">{{ h.emoji }}</div>
+          <div class="hobby-label">{{ h.label }}</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>{{ t.footer }}</p>
+  </footer>
+</div>
+
+<script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+<script>
+// ===== WARM BOKEH / FIREFLY CANVAS =====
+function createStarfield(canvas) {
+  const ctx = canvas.getContext('2d');
+  let W = canvas.width = window.innerWidth;
+  let H = canvas.height = window.innerHeight;
+
+  // Warm bokeh particle palette
+  const warmCols = [
+    [232, 160,  69],   // amber
+    [240, 185, 100],   // gold
+    [210, 120,  50],   // burnt orange
+    [244, 200, 140],   // warm cream
+    [200,  90,  60],   // terracotta
+    [250, 220, 160],   // light gold
+  ];
+
+  // Bokeh blobs (large soft glows)
+  const blobs = Array.from({length: 6}, () => {
+    const c = warmCols[Math.floor(Math.random() * warmCols.length)];
+    return {
+      x: Math.random() * W, y: Math.random() * H,
+      r: Math.random() * 200 + 100,
+      c, alpha: Math.random() * 0.04 + 0.015,
+      vx: (Math.random() - 0.5) * 0.12,
+      vy: (Math.random() - 0.5) * 0.08,
+    };
+  });
+
+  // Firefly / dust particles
+  const particles = Array.from({length: 120}, () => {
+    const c = warmCols[Math.floor(Math.random() * warmCols.length)];
+    return {
+      x: Math.random() * W, y: Math.random() * H,
+      r: Math.random() * 2.2 + 0.4,
+      c, baseAlpha: Math.random() * 0.55 + 0.15,
+      vx: (Math.random() - 0.5) * 0.25,
+      vy: -(Math.random() * 0.18 + 0.04),  // gentle upward drift
+      phase: Math.random() * Math.PI * 2,
+      twinkle: Math.random() * 0.025 + 0.008,
+    };
+  });
+
+  let t = 0;
+  let animId;
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+
+    // Soft background bokeh blobs
+    blobs.forEach(b => {
+      b.x += b.vx; b.y += b.vy;
+      if (b.x < -b.r) b.x = W + b.r;
+      if (b.x > W + b.r) b.x = -b.r;
+      if (b.y < -b.r) b.y = H + b.r;
+      if (b.y > H + b.r) b.y = -b.r;
+      const g = ctx.createRadialGradient(b.x, b.y, 0, b.x, b.y, b.r);
+      g.addColorStop(0, `rgba(${b.c[0]},${b.c[1]},${b.c[2]},${b.alpha})`);
+      g.addColorStop(1, `rgba(${b.c[0]},${b.c[1]},${b.c[2]},0)`);
+      ctx.beginPath(); ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
+      ctx.fillStyle = g; ctx.fill();
+    });
+
+    // Firefly particles
+    particles.forEach(p => {
+      p.x += p.vx; p.y += p.vy;
+      if (p.y < -10) { p.y = H + 10; p.x = Math.random() * W; }
+      if (p.x < -10) p.x = W + 10;
+      if (p.x > W + 10) p.x = -10;
+      const flicker = p.baseAlpha * (0.5 + 0.5 * Math.sin(t * p.twinkle * 60 + p.phase));
+      // Soft glow halo
+      const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 3.5);
+      g.addColorStop(0, `rgba(${p.c[0]},${p.c[1]},${p.c[2]},${flicker})`);
+      g.addColorStop(1, `rgba(${p.c[0]},${p.c[1]},${p.c[2]},0)`);
+      ctx.beginPath(); ctx.arc(p.x, p.y, p.r * 3.5, 0, Math.PI * 2);
+      ctx.fillStyle = g; ctx.fill();
+      // Core dot
+      ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${p.c[0]},${p.c[1]},${p.c[2]},${Math.min(1, flicker * 2)})`;
+      ctx.fill();
+    });
+
+    t += 0.016;
+    animId = requestAnimationFrame(draw);
+  }
+
+  draw();
+  window.addEventListener('resize', () => {
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  });
+  return () => cancelAnimationFrame(animId);
+}
+
+// ===== LOADER =====
+(function() {
+  const lc = document.getElementById('loader-canvas');
+  createStarfield(lc);
+  const bar = document.getElementById('loader-bar');
+  const pct = document.getElementById('loader-pct');
+  const panels = document.querySelectorAll('#loader-panels .loader-panel');
+  const loader = document.getElementById('loader');
+  const app = document.getElementById('app');
+  let progress = 0;
+  const startTime = Date.now();
+  const duration = 2600;
+  function updateProgress() {
+    const elapsed = Date.now() - startTime;
+    progress = Math.min(100, Math.round((elapsed / duration) * 100));
+    bar.style.width = progress + '%';
+    pct.textContent = progress + '%';
+    if (progress < 100) { requestAnimationFrame(updateProgress); return; }
+    // Panels sweep in
+    panels.forEach((p, i) => setTimeout(() => p.classList.add('sweep-in'), i * 40));
+    // After panels in, show app & sweep out
+    setTimeout(() => {
+      app.style.opacity = '1';
+      const mc = document.getElementById('main-canvas');
+      createStarfield(mc);
+      // Re-bind tilt after app visible
+      setTimeout(bindTilt, 200);
+      panels.forEach((p, i) => setTimeout(() => { p.classList.remove('sweep-in'); p.classList.add('sweep-out'); }, i * 40));
+      setTimeout(() => {
+        loader.style.transition = 'opacity 0.3s';
+        loader.style.opacity = '0';
+        setTimeout(() => loader.style.display = 'none', 300);
+      }, 5 * 40 + 400);
+    }, 5 * 40 + 360);
+  }
+  requestAnimationFrame(updateProgress);
+})();
+
+function bindTilt() {
+  document.querySelectorAll('.tilt-card').forEach(card => {
+    card.removeEventListener('mousemove', card._tiltMM);
+    card.removeEventListener('mouseleave', card._tiltML);
+    card._tiltMM = function(e) {
+      const rect = card.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const rx = ((e.clientY - cy) / (rect.height / 2)) * 8;
+      const ry = -((e.clientX - cx) / (rect.width / 2)) * 8;
+      card.style.transform = `perspective(600px) rotateX(${rx}deg) rotateY(${ry}deg) translateZ(6px)`;
+    };
+    card._tiltML = function() { card.style.transform = ''; };
+    card.addEventListener('mousemove', card._tiltMM);
+    card.addEventListener('mouseleave', card._tiltML);
+  });
+}
+
+// ===== VUE APP =====
+const { createApp, ref, computed, onMounted, watch, nextTick } = Vue;
+
+const i18n = {
+  ja: {
+    nav_about:'About', nav_edu:'学歴', nav_skills:'スキル', nav_pub:'研究業績', nav_interests:'趣味',
+    hero_badge:'法政大学 理工学研究科 博士後期課程',
+    hero_title:'画像処理・コンピュータビジョン・医療画像解析',
+    hero_sub:'画像処理と深層学習を専門とする研究者。Inpainting・画像圧縮・医療画像セグメンテーション等、複数の研究分野で国際論文を発表。',
+    btn_scholar:'Google Scholar', btn_pubs:'研究業績を見る',
+    stat_pubs:'採択論文数', stat_years:'年 研究歴', stat_lang:'言語',
+    about_title:'About Me', about_sub:'PROFILE / 自己紹介',
+    bio1:'法政大学理工学研究科博士後期課程在籍。画像処理・コンピュータビジョン・医療画像解析を専門とし、深層学習を用いた画像復元、圧縮センシング、細胞核セグメンテーション等の研究に取り組んでいます。',
+    bio2:'学部3年次より国際会議・ジャーナルに論文採択され、早期からの研究実績を持ちます。PyTorch/TensorFlowを用いた実装からフルスタックWeb開発まで幅広いスキルセットを保有しています。',
+    strength_title:'強み・特徴',
+    strengths:[
+      '学部3年時に国際論文採択という早期からの研究実績',
+      'Inpainting・画像圧縮・医療画像処理など複数分野での研究成果',
+      'Node.jsなどを用いたフルスタック開発の実装経験',
+      '日本語・英語ともにネイティブレベルの運用能力',
+      'C++によるARゲーム開発経験'
+    ],
+    edu_title:'学歴', edu_sub:'EDUCATION / 学歴',
+    education:[
+      {year:'2025–現在', degree:'博士後期課程（工学）', school:'法政大学 理工学部 応用情報工学研究科', badge:'Doctor of Engineering'},
+      {year:'2023–2024', degree:'修士課程（工学）', school:'法政大学 理工学部 応用情報工学研究科', badge:'Master of Engineering'},
+      {year:'2019–2023', degree:'学士（工学）', school:'法政大学 理工学部 応用情報工学科', badge:'Bachelor of Engineering'}
+    ],
+    skills_title:'スキル', skills_sub:'SKILLS / 技術スタック',
+    skillCats:[
+      {icon:'💻', title:'プログラミング', tags:['Python','C/C++','Java','MATLAB','JavaScript','Node.js','HTML/CSS']},
+      {icon:'🤖', title:'ML / CV', tags:['PyTorch','TensorFlow','OpenCV','Scikit-learn','NumPy','Pandas','PIL']},
+      {icon:'🔧', title:'ツール・環境', tags:['Linux','Git','LaTeX','Colaboratory','Anaconda','bash','PyQt5','SolidWorks']}
+    ],
+    more:'and more', featured_title:'Featured Tools',
+    pub_title:'研究業績', pub_sub:'PUBLICATIONS / 査読付き論文',
+    filter_all:'すべて', filter_journal:'ジャーナル', filter_conf:'国際会議',
+    badge_journal:'Journal', badge_conf:'Conference', badge_peer:'査読あり', view_paper:'論文を見る',
+    interests_title:'趣味・興味', interests_sub:'INTERESTS / 趣味',
+    hobbies:[
+      {emoji:'🎸',label:'ギター'},{emoji:'🎹',label:'ピアノ'},{emoji:'🥁',label:'ドラム'},
+      {emoji:'🎤',label:'ボーカル'},{emoji:'⛺',label:'キャンプ'},{emoji:'🚗',label:'ドライブ'},
+      {emoji:'🎱',label:'ビリヤード'},{emoji:'✏️',label:'イラスト'},{emoji:'💪',label:'フィットネス'},
+      {emoji:'🎨',label:'デザイン'}
+    ],
+    footer:'© 2026 Wang Haixin. 法政大学 理工学研究科. All rights reserved.'
+  },
+  en: {
+    nav_about:'About', nav_edu:'Education', nav_skills:'Skills', nav_pub:'Publications', nav_interests:'Interests',
+    hero_badge:'PhD Student, Hosei University, Graduate School of Science & Engineering',
+    hero_title:'Image Processing · Computer Vision · Medical Image Analysis',
+    hero_sub:'Researcher specializing in deep learning for image processing. Published internationally in inpainting, compressive sensing, and medical image segmentation.',
+    btn_scholar:'Google Scholar', btn_pubs:'View Publications',
+    stat_pubs:'Publications', stat_years:'Yrs Research', stat_lang:'Languages',
+    about_title:'About Me', about_sub:'PROFILE',
+    bio1:'PhD student at Hosei University Graduate School of Science and Engineering. Specializing in image processing, computer vision, and medical image analysis using deep learning — covering image inpainting, compressive sensing, and cell nucleus segmentation.',
+    bio2:'Published internationally since undergraduate 3rd year. Proficient in PyTorch/TensorFlow and full-stack web development with Node.js. Native-level proficiency in both Japanese and English.',
+    strength_title:'Key Strengths',
+    strengths:[
+      'International paper accepted as early as undergraduate 3rd year',
+      'Research across multiple fields: inpainting, compression, medical imaging',
+      'Full-stack development experience with Node.js and related technologies',
+      'Native-level proficiency in both Japanese and English',
+      'AR game development experience with C++'
+    ],
+    edu_title:'Education', edu_sub:'ACADEMIC BACKGROUND',
+    education:[
+      {year:'2025–present', degree:'Doctor of Engineering (PhD)', school:'Hosei University, Graduate School of Science & Engineering', badge:'博士後期課程'},
+      {year:'2023–2024', degree:'Master of Engineering', school:'Hosei University, Graduate School of Science & Engineering', badge:'修士課程'},
+      {year:'2019–2023', degree:'Bachelor of Engineering', school:'Hosei University, Faculty of Science & Engineering', badge:'学士課程'}
+    ],
+    skills_title:'Skills', skills_sub:'TECHNICAL STACK',
+    skillCats:[
+      {icon:'💻', title:'Programming', tags:['Python','C/C++','Java','MATLAB','JavaScript','Node.js','HTML/CSS']},
+      {icon:'🤖', title:'ML / CV', tags:['PyTorch','TensorFlow','OpenCV','Scikit-learn','NumPy','Pandas','PIL']},
+      {icon:'🔧', title:'Tools & Env', tags:['Linux','Git','LaTeX','Colaboratory','Anaconda','bash','PyQt5','SolidWorks']}
+    ],
+    more:'and more', featured_title:'Featured Tools',
+    pub_title:'Publications', pub_sub:'PEER-REVIEWED RESEARCH',
+    filter_all:'All', filter_journal:'Journal', filter_conf:'Conference',
+    badge_journal:'Journal', badge_conf:'Conference', badge_peer:'Peer Reviewed', view_paper:'View Paper',
+    interests_title:'Interests', interests_sub:'HOBBIES & ACTIVITIES',
+    hobbies:[
+      {emoji:'🎸',label:'Guitar'},{emoji:'🎹',label:'Piano'},{emoji:'🥁',label:'Drums'},
+      {emoji:'🎤',label:'Vocal'},{emoji:'⛺',label:'Camping'},{emoji:'🚗',label:'Drive'},
+      {emoji:'🎱',label:'Billiards'},{emoji:'✏️',label:'Drawing'},{emoji:'💪',label:'Fitness'},
+      {emoji:'🎨',label:'Design'}
+    ],
+    footer:'© 2026 Wang Haixin. Hosei University, Graduate School of Science & Engineering. All rights reserved.'
+  },
+  cn: {
+    nav_about:'关于', nav_edu:'教育经历', nav_skills:'技能', nav_pub:'研究成果', nav_interests:'兴趣',
+    hero_badge:'法政大学 理工学研究科 博士后期课程',
+    hero_title:'图像处理 · 计算机视觉 · 医学图像分析',
+    hero_sub:'专注于深度学习图像处理的研究者。在图像修复、压缩感知和医学图像分割等领域发表国际论文。',
+    btn_scholar:'Google 学术', btn_pubs:'查看研究成果',
+    stat_pubs:'已发表论文', stat_years:'年研究经验', stat_lang:'语言',
+    about_title:'关于我', about_sub:'个人简介',
+    bio1:'现就读于法政大学理工学研究科博士后期课程。专攻图像处理、计算机视觉和医学图像分析，研究方向涵盖深度学习图像修复、压缩感知、细胞核分割等。',
+    bio2:'自本科三年级起便有国际论文发表经历，研究起步早。熟练掌握 PyTorch/TensorFlow 及 Node.js 全栈开发，日语和英语均达到母语水平。',
+    strength_title:'核心优势',
+    strengths:[
+      '本科三年级即发表国际论文，研究起步早',
+      '在图像修复、压缩、医学图像处理等多领域有研究成果',
+      '具备使用 Node.js 等技术的全栈开发经验',
+      '日语和英语均达到母语水平',
+      '具备使用 C++ 开发 AR 游戏的经验'
+    ],
+    edu_title:'教育经历', edu_sub:'学历背景',
+    education:[
+      {year:'2025–至今', degree:'博士后期课程（工学博士）', school:'法政大学 理工学部 应用信息工学研究科', badge:'Doctor of Engineering'},
+      {year:'2023–2024', degree:'硕士课程（工学硕士）', school:'法政大学 理工学部 应用信息工学研究科', badge:'Master of Engineering'},
+      {year:'2019–2023', degree:'学士（工学）', school:'法政大学 理工学部 应用信息工学科', badge:'Bachelor of Engineering'}
+    ],
+    skills_title:'技能', skills_sub:'技术栈',
+    skillCats:[
+      {icon:'💻', title:'编程语言', tags:['Python','C/C++','Java','MATLAB','JavaScript','Node.js','HTML/CSS']},
+      {icon:'🤖', title:'ML / CV', tags:['PyTorch','TensorFlow','OpenCV','Scikit-learn','NumPy','Pandas','PIL']},
+      {icon:'🔧', title:'工具与环境', tags:['Linux','Git','LaTeX','Colaboratory','Anaconda','bash','PyQt5','SolidWorks']}
+    ],
+    more:'更多', featured_title:'常用工具',
+    pub_title:'研究成果', pub_sub:'已发表的同行评审论文',
+    filter_all:'全部', filter_journal:'期刊', filter_conf:'会议',
+    badge_journal:'期刊', badge_conf:'会议', badge_peer:'同行评审', view_paper:'查看论文',
+    interests_title:'兴趣爱好', interests_sub:'日常活动',
+    hobbies:[
+      {emoji:'🎸',label:'吉他'},{emoji:'🎹',label:'钢琴'},{emoji:'🥁',label:'架子鼓'},
+      {emoji:'🎤',label:'唱歌'},{emoji:'⛺',label:'露营'},{emoji:'🚗',label:'驾车'},
+      {emoji:'🎱',label:'台球'},{emoji:'✏️',label:'绘画'},{emoji:'💪',label:'健身'},
+      {emoji:'🎨',label:'设计'}
+    ],
+    footer:'© 2026 Wang Haixin. 法政大学 理工学研究科. 版权所有。'
+  }
+};
+
+createApp({
+  setup() {
+    const lang = ref('ja');
+    const t = computed(() => i18n[lang.value]);
+    const pubFilter = ref('all');
+    const openPub = ref(null);
+
+    const publications = [
+      {id:1, title:'Leveraging Temporal Down-sampling Structure and Spatio-Temporal Fusion for Efficient Video Coding', url:'https://www.mdpi.com/1424-8220/26/5/1522', authors:'Keren He, Yufei Gao, Qi Wang, Haixin Wang, Jinjia Zhou', type:'journal', venue:'Sensors, MDPI', year:2026},
+      {id:2, title:'NuclSeg-v2.0: Nuclei Segmentation using Semi-supervised Stain Deconvolution with Real-time User Feedback', url:'https://www.sciencedirect.com/science/article/abs/pii/S0031320325014864', authors:'Haixin Wang, Jian Yang, Ryohei Katayama, Michiya Matusaki, Tomoyuki Miyao, Ying Li, Jinjia Zhou', type:'journal', venue:'Pattern Recognition, Elsevier', year:2025},
+      {id:3, title:'Harmony Score-Guided Inpainting: Iterative Refinement for Seamless Image Inpainting', url:'https://www.sciencedirect.com/science/article/abs/pii/S092523122501673X', authors:'Haixin Wang, Jian Yang, Jinjia Zhou', type:'journal', venue:'Neurocomputing, Elsevier', year:2025},
+      {id:4, title:'Efficient Cell Segmentation and Classification by Leveraging an Auto Prompt Generator and a New Fine-Tuning Strategy', url:'https://ieeexplore.ieee.org/abstract/document/11043565/', authors:'Lee Jeongahn, Wang Haixin, Zhou Jinjia', type:'conference', venue:'IEEE International Conference', year:2025},
+      {id:5, title:'aVCSR: Adaptive Video Compressive Sensing using Region-of-Interest Detection in the Compressed Domain', url:'https://dl.acm.org/doi/10.1109/MMUL.2023.3342062', authors:'Jian Yang, Haixin Wang, Ittetsu Taniguchi, Yibo Fan, Jinjia Zhou', type:'journal', venue:'IEEE MultiMedia', year:2024},
+      {id:6, title:'ASAUN-CS: Adaptive Stage Activated Unfolding Network for Compressive Sensing', url:'https://ieeexplore.ieee.org/abstract/document/10557871', authors:'Jian Yang, Kun Xiang, Haixin Wang, Yibo Fan, Jinjia Zhou', type:'conference', venue:'IEEE International Conference', year:2024},
+      {id:7, title:'An Iterative Image Inpainting Method Using Mask Shrinking', url:'https://ieeexplore.ieee.org/abstract/document/10557867', authors:'Matano Haruka, Haixin Wang, Jinjia Zhou', type:'conference', venue:'IEEE International Conference', year:2024},
+      {id:8, title:'NuclSeg: nuclei segmentation using semi-supervised stain deconvolution', url:'https://dl.acm.org/doi/abs/10.1145/3595916.3626392', authors:'Haixin Wang, Jian Yang, Ryohei Katayama, Michiya Matsusaki, Tomoyuki Miyao, Jinjia Zhou', type:'conference', venue:'ACM International Conference on Multimedia', year:2023},
+      {id:9, title:'VCSL: Video Compressive Sensing with Low-complexity ROI Detection in Compressed Domain', url:'https://ieeexplore.ieee.org/abstract/document/10125309', authors:'Jian Yang, Haixin Wang, Yibo Fan, Jinjia Zhou', type:'conference', venue:'IEEE International Conference', year:2023},
+      {id:10, title:'Hierarchical down-sampling based ultra high-resolution image inpainting', url:'https://link.springer.com/chapter/10.1007/978-3-031-30111-7_28', authors:'Haixin Wang, Jian Yang, Jinjia Zhou', type:'conference', venue:'International Conference, Springer LNCS', year:2023}
+    ];
+
+    const featuredTools = [
+      {name:'Python', emoji:'🐍', url:'https://python.org', color:'#3b82f6', desc:'Primary language for ML research and scripting.'},
+      {name:'PyTorch', emoji:'🔥', url:'https://pytorch.org', color:'#ee4c2c', desc:'Deep learning framework for model training and inference.'},
+      {name:'TensorFlow', emoji:'📦', url:'https://tensorflow.org', color:'#ff6f00', desc:'End-to-end ML platform for production deployments.'},
+      {name:'OpenCV', emoji:'👁️', url:'https://opencv.org', color:'#5c3ee8', desc:'Open source computer vision and image processing library.'},
+      {name:'NumPy', emoji:'🔢', url:'https://numpy.org', color:'#4dabcf', desc:'Fundamental array computing for scientific Python.'},
+      {name:'Node.js', emoji:'🟢', url:'https://nodejs.org', color:'#339933', desc:'JavaScript runtime for full-stack web development.'}
+    ];
+
+    const filteredPubs = computed(() => {
+      if (pubFilter.value === 'all') return publications;
+      return publications.filter(p => p.type === pubFilter.value);
+    });
+
+    function togglePub(id) {
+      openPub.value = openPub.value === id ? null : id;
+    }
+
+    function highlightAuthor(authors) {
+      return authors.replace(/(Haixin Wang|Wang Haixin)/g, '<strong>$1</strong>');
+    }
+
+    const curtain = document.getElementById('lang-curtain');
+    function switchLang(newLang) {
+      if (newLang === lang.value) return;
+      curtain.className = 'curtain-down';
+      setTimeout(() => {
+        lang.value = newLang;
+        nextTick(() => {
+          curtain.className = 'curtain-up';
+          setTimeout(() => bindTilt(), 100);
+          // Re-observe new fade-in elements
+          document.querySelectorAll('.fade-in:not(.visible)').forEach(el => {
+            el.classList.add('visible');
+          });
+        });
+      }, 290);
+    }
+
+    onMounted(() => {
+      // Intersection observer for fade-in
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const el = entry.target;
+            const siblings = Array.from(el.closest('section, nav, footer')?.querySelectorAll('.fade-in') || [el]);
+            const idx = siblings.indexOf(el);
+            setTimeout(() => el.classList.add('visible'), idx * 70);
+            io.unobserve(el);
+          }
+        });
+      }, {threshold: 0.1});
+      document.querySelectorAll('.fade-in').forEach(el => io.observe(el));
+
+      // Stats counter
+      const statsIO = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const el = entry.target;
+            const target = parseInt(el.dataset.target);
+            const suffix = el.dataset.suffix || '';
+            let cur = 0;
+            const step = Math.ceil(target / 30);
+            const timer = setInterval(() => {
+              cur = Math.min(cur + step, target);
+              el.textContent = cur + suffix;
+              if (cur >= target) clearInterval(timer);
+            }, 40);
+            statsIO.unobserve(el);
+          }
+        });
+      }, {threshold: 0.5});
+      document.querySelectorAll('.stat-num[data-target]').forEach(el => statsIO.observe(el));
+
+      // Hero parallax
+      document.addEventListener('mousemove', (e) => {
+        const f1 = document.getElementById('hf1');
+        const f2 = document.getElementById('hf2');
+        if (!f1 || !f2) return;
+        const xFrac = (e.clientX / window.innerWidth - 0.5);
+        const yFrac = (e.clientY / window.innerHeight - 0.5);
+        f1.style.transform = `translate(${xFrac * 30}px, ${yFrac * 20}px)`;
+        f2.style.transform = `translate(${xFrac * -20}px, ${yFrac * -15}px)`;
+      });
+    });
+
+    return {
+      lang, t, publications, featuredTools,
+      pubFilter, filteredPubs, openPub,
+      togglePub, highlightAuthor, switchLang
+    };
+  }
+}).mount('#app');
+</script>
+</body>
+</html>

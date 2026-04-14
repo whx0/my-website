@@ -1,0 +1,11 @@
+名前: Wang Haixin
+通称名: 佐藤 海来
+自己紹介：法政大学大学院博士後期課程に在学中。画像処理を主な研究分野とし、コンピュータビジョンや画像解析に関する手法の研究に取り組んでいる。理論と応用の両面から、視覚情報の高度な理解と処理技術の発展を目指している。
+Google Scholar: https://scholar.google.co.jp/citations?user=D3EGKNcAAAAJ&hl=ja
+強み：学部3年時に国際論文採択という早期からの研究実績、Inpainting・画像圧縮・医療画像処理といった複数分野における研究成果、Node.jsなどを用いたフロントエンド開発経験を含む実装力、日本語・英語ともにネイティブレベルの運用能力、C++によるバレーボールARゲーム開発
+経歴：2019~2023 法政大学 理工学部 応用情報工学 学部, 2023~2024 法政大学 理工学部 応用情報工学研究科 修士課程, 2025~現在 法政大学 理工学部 応用情報工学研究科 博士後期課程
+Skill: Linux, Git, Colaboratory, LATEX(Overleaf), Pytorch, Tensorflow, OpenCV, Pandas, bash,
+Scikit-learn, NumPy, Anaconda, Solid works, PyQt5, PIL, tkinter.
+Programming: Python, Java, MATLAB, C/C++, HTML/CSS, JavaScript, Node.js
+
+趣味：ギター、ピアノ、ドラム、キャンプ、ドライブ、ビリヤード、絵、筋トレ、デザイン、ヴォーカル
