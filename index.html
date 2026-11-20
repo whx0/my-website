@@ -95,7 +95,6 @@ section { scroll-margin-top: 1rem; }
 .spark.s1 { top: 16%; left: 46%; color: var(--aqua); } .spark.s2 { top: 10%; right: 5%; color: var(--pink); animation-delay: -1.2s; } .spark.s3 { bottom: 14%; left: 54%; font-size: .8rem; animation-delay: -2s; }
 @keyframes twinkle { 0%,100% { transform: scale(1); opacity: .8; } 50% { transform: scale(.6); opacity: .35; } }
 .hero-tree { position: relative; z-index: 2; flex: 0 0 44%; aspect-ratio: 1 / 1; max-width: 27rem; display: grid; place-items: center; }
-.orbit { position: absolute; inset: 4%; border: 2px dashed #c8cdee; border-radius: 50%; }
 .tree-big { position: relative; width: 106%; max-width: none; height: auto; }
 .float-stat, .tb { position: absolute; z-index: 3; border-radius: 50%; isolation: isolate; transform: translate(-50%,-50%); animation: floaty 5s ease-in-out infinite;
   background:
@@ -121,7 +120,7 @@ section { scroll-margin-top: 1rem; }
 /* about */
 .about-grid { display: grid; grid-template-columns: 15rem 1fr; gap: 1.6rem; align-items: start; }
 .photo { background: #fff; padding: .5rem .5rem 1.4rem; border-radius: 6px; box-shadow: 0 10px 24px rgba(43,52,102,.14); transform: rotate(-2.5deg); }
-.photo img { display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 3px; }
+.photo img { display: block; width: 100%; aspect-ratio: 5 / 6; object-fit: cover; object-position: center top; border-radius: 3px; }
 .photo-label { margin-top: .5rem; text-align: center; font-size: .78rem; font-weight: 700; color: var(--ink-soft); line-height: 1.5; }
 .about-bio p { margin: 0 0 .9rem; }
 .about-bio p:last-child { margin-bottom: 0; }
@@ -269,7 +268,6 @@ section { scroll-margin-top: 1rem; }
         </div>
       </div>
       <div class="hero-tree">
-        <div class="orbit"></div>
         <img class="tree-big" src="img/tree.webp" alt="" width="520" height="407">
         <span class="tb b1"></span><span class="tb b2"></span><span class="tb b3"></span><span class="tb b4"></span><span class="tb b5"></span>
         <div class="float-stat f1 c-aqua"><b>{{ publications.length }}+</b><span>{{ t.stat_pubs }}</span></div>
