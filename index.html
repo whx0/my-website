@@ -216,9 +216,109 @@ section { scroll-margin-top: 1rem; }
 }
 @media (min-width: 761px) and (max-width: 960px) { .grid3 { grid-template-columns: repeat(2, 1fr); } }
 @media (prefers-reduced-motion: reduce) { .bubbles, .spark, .float-stat, .tb { animation: none !important; } .fade-in { opacity: 1; transform: none; transition: none; } }
+/* ===== Loader: ひとしずくの木 (5s) ===== */
+html.ld-on, html.ld-on body { overflow: hidden; }
+html.ld-skip #loader { display: none; }
+#loader { position: fixed; inset: 0; z-index: 9999; overflow: hidden; cursor: pointer;
+  background: #f4fbfb url(img/loader/bg.webp) center / cover no-repeat;
+  --vh: 100vh;
+  --sb: max(calc(100vw / 1920), calc(var(--vh) / 1080));
+  --u: min(var(--sb), calc(100vw / 1150));
+  --gy: calc(var(--vh) / 2 + var(--sb) * 332);
+  transition: opacity .7s ease, visibility .7s; }
+@supports (height: 100dvh) { #loader { --vh: 100dvh; } }
+#loader.ld-out { opacity: 0; visibility: hidden; }
+#loader img { position: absolute; display: block; max-width: none; user-select: none; -webkit-user-drag: none; }
+.ld-base { position: absolute; left: 50%; top: var(--gy); width: 0; height: 0; }
+.ld-base > * { opacity: 0; }
+.ld-drop    { left: calc(var(--u) * -28);  top: calc(var(--u) * -105); width: calc(var(--u) * 56); }
+.ld-ripple  { left: calc(var(--u) * -401); top: calc(var(--u) * -88);  width: calc(var(--u) * 802); }
+.ld-sprout  { left: calc(var(--u) * -62);  top: calc(var(--u) * -81);  width: calc(var(--u) * 125); transform-origin: 50% 100%; }
+.ld-sapling { left: calc(var(--u) * -117); top: calc(var(--u) * -199); width: calc(var(--u) * 235); transform-origin: 50% 100%; }
+.ld-grow    { left: calc(var(--u) * -487); top: calc(var(--u) * -749); width: calc(var(--u) * 974); transform-origin: 50% 100%; }
+.ld-tree, .ld-bubbles { left: calc(var(--u) * -506); top: calc(var(--u) * -768); width: calc(var(--u) * 974); transform-origin: 52% 100%; }
+.ld-shadow  { left: calc(var(--u) * -624); top: calc(var(--u) * -52);  width: calc(var(--u) * 1218); }
+.ld-spark   { width: calc(var(--u) * var(--s, 22)); left: calc(var(--u) * var(--x)); top: calc(var(--u) * var(--y)); }
+.ld-skip-btn { position: absolute; right: 1.2rem; bottom: 1rem; font: 600 .78rem/1 "Quicksand", sans-serif; letter-spacing: .12em; color: #8fa3c8; opacity: 0; transition: opacity .6s .8s; }
+#loader.ld-play .ld-skip-btn { opacity: .85; }
+
+#loader.ld-play .ld-drop    { animation: ldDrop 1.05s cubic-bezier(.55,0,.85,.4) both; }
+#loader.ld-play .ld-ripple  { animation: ldRipple 1s ease-out 1s both; }
+#loader.ld-play .ld-ripple.r2 { animation-delay: 1.22s; }
+#loader.ld-play .ld-sprout  { animation: ldSprout .95s ease-out 1.3s both; }
+#loader.ld-play .ld-sapling { animation: ldSapling .85s ease-out 2s both; }
+#loader.ld-play .ld-grow    { animation: ldGrow 1.25s cubic-bezier(.35,.5,.45,1) 2.55s both; }
+#loader.ld-play .ld-tree    { animation: ldTree .75s cubic-bezier(.25,.8,.35,1) 3.45s both; }
+#loader.ld-play .ld-bubbles { animation: ldBubbles 1s ease-out 4s both; }
+#loader.ld-play .ld-shadow  { animation: ldFade 1.4s ease-out 2.6s both; }
+#loader.ld-play .ld-spark   { animation: ldTwinkle var(--d, 2s) ease-in-out var(--t, 1s) both; }
+#loader.ld-play .ld-spark.burst { animation: ldBurst .9s ease-out var(--t, 1s) both; }
+
+@keyframes ldDrop {
+  0%   { opacity: 0; transform: translateY(calc(-1 * var(--gy) + var(--u) * 40)) scale(.9, 1.05); }
+  10%  { opacity: 1; }
+  92%  { opacity: 1; transform: translateY(0) scale(.9, 1.1); }
+  100% { opacity: 0; transform: translateY(calc(var(--u) * 20)) scale(1.4, .4); } }
+@keyframes ldRipple {
+  0%   { opacity: 0; transform: scale(.15); }
+  15%  { opacity: 1; }
+  100% { opacity: 0; transform: scale(1.05); } }
+@keyframes ldSprout {
+  0%   { opacity: 0; transform: scale(0); }
+  25%  { opacity: 1; }
+  70%  { opacity: 1; transform: scale(1.05); }
+  100% { opacity: 0; transform: scale(1.25); } }
+@keyframes ldSapling {
+  0%   { opacity: 0; transform: scale(.45); }
+  25%  { opacity: 1; }
+  75%  { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(1.12); } }
+@keyframes ldGrow {
+  0%   { opacity: 0; transform: scale(.34); }
+  15%  { opacity: 1; }
+  72%  { opacity: 1; transform: scale(.9); }
+  100% { opacity: 0; transform: scale(.97); } }
+@keyframes ldTree {
+  0%   { opacity: 0; transform: scale(.91); }
+  40%  { opacity: 1; }
+  100% { opacity: 1; transform: scale(1); } }
+@keyframes ldBubbles {
+  0%   { opacity: 0; transform: translateY(calc(var(--u) * 14)); }
+  100% { opacity: 1; transform: translateY(0); } }
+@keyframes ldFade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes ldTwinkle {
+  0%, 100% { opacity: 0; transform: scale(.3) rotate(0); }
+  50%      { opacity: .95; transform: scale(1) rotate(45deg); } }
+@keyframes ldBurst {
+  0%   { opacity: 0; transform: translate(0, 0) scale(.3); }
+  25%  { opacity: 1; }
+  100% { opacity: 0; transform: translate(calc(var(--u) * var(--dx)), calc(var(--u) * var(--dy))) scale(1); } }
+
+@media (prefers-reduced-motion: reduce) {
+  #loader.ld-play .ld-base > * { animation: none !important; }
+  #loader.ld-play .ld-tree, #loader.ld-play .ld-bubbles, #loader.ld-play .ld-shadow { opacity: 1; }
+}
 </style>
+<script>
+/* ロード画面はセッション内で初回のみ表示（2回目以降・内部遷移ではスキップ） */
+(function(){try{if(sessionStorage.getItem('ldSeen')){document.documentElement.classList.add('ld-skip');}else{document.documentElement.classList.add('ld-on');}}catch(e){document.documentElement.classList.add('ld-on');}})();
+</script>
 </head>
 <body>
+<div id="loader" aria-hidden="true">
+  <div class="ld-base">
+    <img class="ld-shadow" src="img/loader/shadow.webp" alt="">
+    <img class="ld-ripple" src="img/loader/ripple.webp" alt="">
+    <img class="ld-ripple r2" src="img/loader/ripple.webp" alt="">
+    <img class="ld-sprout" src="img/loader/sprout.webp" alt="">
+    <img class="ld-sapling" src="img/loader/sapling.webp" alt="">
+    <img class="ld-grow" src="img/loader/grow.webp" alt="">
+    <img class="ld-tree" src="img/loader/tree.webp" alt="">
+    <img class="ld-bubbles" src="img/loader/bubbles.webp" alt="">
+    <img class="ld-drop" src="img/loader/drop.webp" alt="">
+  </div>
+  <span class="ld-skip-btn">SKIP ›</span>
+</div>
 <div class="bubbles" aria-hidden="true">
   <span style="width:86px;height:86px;left:5%;animation-duration:26s;animation-delay:-4s"></span>
   <span style="width:38px;height:38px;left:17%;animation-duration:19s;animation-delay:-12s"></span>
@@ -613,6 +713,66 @@ createApp({
   }
 }).mount('#app');
 
+</script>
+<script>
+/* ===== Loader: ひとしずくの木 ===== */
+(function () {
+  var el = document.getElementById('loader');
+  var root = document.documentElement;
+  if (!el) return;
+  if (root.classList.contains('ld-skip')) { el.remove(); return; }
+
+  var base = el.querySelector('.ld-base');
+  var colors = ['aqua', 'lav', 'pink', 'white'];
+  function rnd(a, b) { return a + Math.random() * (b - a); }
+  function spark(cls, vars) {
+    var img = new Image();
+    img.className = 'ld-spark' + (cls ? ' ' + cls : '');
+    img.alt = '';
+    img.src = 'img/loader/spark-' + colors[Math.floor(Math.random() * 4)] + '.webp';
+    for (var k in vars) img.style.setProperty('--' + k, vars[k]);
+    base.appendChild(img);
+  }
+  // 着地のキラキラ（波紋から外へ散る）
+  for (var i = 0; i < 12; i++) {
+    var a = Math.PI * (1.05 + i / 11 * 0.9), r = rnd(160, 300);
+    spark('burst', { x: -11, y: -32, s: rnd(14, 24).toFixed(0), t: (1 + rnd(0, .25)).toFixed(2) + 's',
+      dx: (Math.cos(a) * r).toFixed(0), dy: (Math.sin(a) * r * .55).toFixed(0) });
+  }
+  // まわりで瞬くキラキラ
+  for (var j = 0; j < 22; j++) {
+    spark('', { x: rnd(-760, 740).toFixed(0), y: rnd(-820, -40).toFixed(0), s: rnd(14, 30).toFixed(0),
+      t: rnd(1, 4.2).toFixed(2) + 's', d: rnd(1.4, 2.4).toFixed(2) + 's' });
+  }
+
+  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var DURATION = reduce ? 1200 : 5000;
+  var done = false, timer;
+
+  function finish() {
+    if (done) return; done = true;
+    clearTimeout(timer);
+    try { sessionStorage.setItem('ldSeen', '1'); } catch (e) {}
+    el.classList.add('ld-out');
+    root.classList.remove('ld-on');
+    setTimeout(function () { el.remove(); }, 800);
+  }
+  function play() {
+    if (el.classList.contains('ld-play')) return;
+    el.classList.add('ld-play');
+    timer = setTimeout(finish, DURATION);
+  }
+
+  el.addEventListener('click', finish);
+  window.addEventListener('keydown', function (e) { if (!done && (e.key === 'Escape' || e.key === 'Enter' || e.key === ' ')) finish(); });
+
+  // 部品画像の読み込みを待ってから再生（最大2.5秒で見切り発車）
+  var imgs = Array.prototype.slice.call(el.querySelectorAll('img'));
+  Promise.all(imgs.map(function (im) {
+    return im.decode ? im.decode().catch(function () {}) : Promise.resolve();
+  })).then(play);
+  setTimeout(play, 2500);
+})();
 </script>
 </body>
 </html>
