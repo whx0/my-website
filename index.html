@@ -216,87 +216,77 @@ section { scroll-margin-top: 1rem; }
 }
 @media (min-width: 761px) and (max-width: 960px) { .grid3 { grid-template-columns: repeat(2, 1fr); } }
 @media (prefers-reduced-motion: reduce) { .bubbles, .spark, .float-stat, .tb { animation: none !important; } .fade-in { opacity: 1; transform: none; transition: none; } }
-/* ===== Loader: ひとしずくの木 (5s) ===== */
+/* ===== Loader (NOW LOADING) ===== */
 html.ld-on, html.ld-on body { overflow: hidden; }
 html.ld-skip #loader { display: none; }
-#loader { position: fixed; inset: 0; z-index: 9999; overflow: hidden; cursor: pointer;
-  background: #f4fbfb url(img/loader/bg.webp) center / cover no-repeat;
-  --vh: 100vh;
-  --sb: max(calc(100vw / 1920), calc(var(--vh) / 1080));
-  --u: min(var(--sb), calc(100vw / 1150));
-  --gy: calc(var(--vh) / 2 + var(--sb) * 332);
-  transition: opacity .7s ease, visibility .7s; }
-@supports (height: 100dvh) { #loader { --vh: 100dvh; } }
-#loader.ld-out { opacity: 0; visibility: hidden; }
-#loader img { position: absolute; display: block; max-width: none; user-select: none; -webkit-user-drag: none; }
-.ld-base { position: absolute; left: 50%; top: var(--gy); width: 0; height: 0; }
-.ld-base > * { opacity: 0; }
-.ld-drop    { left: calc(var(--u) * -28);  top: calc(var(--u) * -105); width: calc(var(--u) * 56); }
-.ld-ripple  { left: calc(var(--u) * -401); top: calc(var(--u) * -88);  width: calc(var(--u) * 802); }
-.ld-sprout  { left: calc(var(--u) * -62);  top: calc(var(--u) * -81);  width: calc(var(--u) * 125); transform-origin: 50% 100%; }
-.ld-sapling { left: calc(var(--u) * -117); top: calc(var(--u) * -199); width: calc(var(--u) * 235); transform-origin: 50% 100%; }
-.ld-grow    { left: calc(var(--u) * -487); top: calc(var(--u) * -749); width: calc(var(--u) * 974); transform-origin: 50% 100%; }
-.ld-tree, .ld-bubbles { left: calc(var(--u) * -506); top: calc(var(--u) * -768); width: calc(var(--u) * 974); transform-origin: 52% 100%; }
-.ld-shadow  { left: calc(var(--u) * -624); top: calc(var(--u) * -52);  width: calc(var(--u) * 1218); }
-.ld-spark   { width: calc(var(--u) * var(--s, 22)); left: calc(var(--u) * var(--x)); top: calc(var(--u) * var(--y)); }
-.ld-skip-btn { position: absolute; right: 1.2rem; bottom: 1rem; font: 600 .78rem/1 "Quicksand", sans-serif; letter-spacing: .12em; color: #8fa3c8; opacity: 0; transition: opacity .6s .8s; }
-#loader.ld-play .ld-skip-btn { opacity: .85; }
+#loader { position: fixed; inset: 0; z-index: 9998; overflow: hidden; color: var(--ink);
+  background:
+    repeating-linear-gradient(-62deg, rgba(108,127,198,.045) 0 2px, transparent 2px 26px),
+    radial-gradient(60rem 40rem at 85% 110%, rgba(95,207,224,.16), transparent 60%),
+    radial-gradient(50rem 36rem at 0% -10%, rgba(179,154,240,.14), transparent 60%),
+    #f8fafe; }
+#loader::before { content: ""; position: absolute; inset: -20%; pointer-events: none;
+  background: repeating-linear-gradient(-62deg, transparent 0 140px, rgba(95,207,224,.07) 140px 190px, transparent 190px 420px);
+  animation: ldDrift 14s linear infinite; }
+@keyframes ldDrift { to { transform: translateX(-420px); } }
+#loader img { display: block; max-width: none; user-select: none; -webkit-user-drag: none; }
 
-#loader.ld-play .ld-drop    { animation: ldDrop 1.05s cubic-bezier(.55,0,.85,.4) both; }
-#loader.ld-play .ld-ripple  { animation: ldRipple 1s ease-out 1s both; }
-#loader.ld-play .ld-ripple.r2 { animation-delay: 1.22s; }
-#loader.ld-play .ld-sprout  { animation: ldSprout .95s ease-out 1.3s both; }
-#loader.ld-play .ld-sapling { animation: ldSapling .85s ease-out 2s both; }
-#loader.ld-play .ld-grow    { animation: ldGrow 1.25s cubic-bezier(.35,.5,.45,1) 2.55s both; }
-#loader.ld-play .ld-tree    { animation: ldTree .75s cubic-bezier(.25,.8,.35,1) 3.45s both; }
-#loader.ld-play .ld-bubbles { animation: ldBubbles 1s ease-out 4s both; }
-#loader.ld-play .ld-shadow  { animation: ldFade 1.4s ease-out 2.6s both; }
-#loader.ld-play .ld-spark   { animation: ldTwinkle var(--d, 2s) ease-in-out var(--t, 1s) both; }
-#loader.ld-play .ld-spark.burst { animation: ldBurst .9s ease-out var(--t, 1s) both; }
+/* 左上：名前 */
+.ld-brand { position: absolute; top: clamp(1rem, 4vh, 2.2rem); left: clamp(1rem, 4vw, 2.6rem); display: flex; align-items: center; gap: .7rem; animation: ldIn .6s ease-out both; }
+.ld-brand-mark { display: grid; place-items: center; width: 42px; height: 42px; border-radius: 50%; background: linear-gradient(135deg, var(--aqua), var(--lav)); color: #fff; font: 700 1rem/1 "Quicksand", sans-serif; box-shadow: 0 4px 12px rgba(108,127,198,.25); }
+.ld-brand-name { font: 700 1.05rem/1.1 "Quicksand", sans-serif; color: var(--aqua-deep); letter-spacing: .02em; }
+.ld-brand-sub { font: 600 .66rem/1.4 "Quicksand", sans-serif; color: var(--ink-soft); letter-spacing: .14em; }
 
-@keyframes ldDrop {
-  0%   { opacity: 0; transform: translateY(calc(-1 * var(--gy) + var(--u) * 40)) scale(.9, 1.05); }
-  10%  { opacity: 1; }
-  92%  { opacity: 1; transform: translateY(0) scale(.9, 1.1); }
-  100% { opacity: 0; transform: translateY(calc(var(--u) * 20)) scale(1.4, .4); } }
-@keyframes ldRipple {
-  0%   { opacity: 0; transform: scale(.15); }
-  15%  { opacity: 1; }
-  100% { opacity: 0; transform: scale(1.05); } }
-@keyframes ldSprout {
-  0%   { opacity: 0; transform: scale(0); }
-  25%  { opacity: 1; }
-  70%  { opacity: 1; transform: scale(1.05); }
-  100% { opacity: 0; transform: scale(1.25); } }
-@keyframes ldSapling {
-  0%   { opacity: 0; transform: scale(.45); }
-  25%  { opacity: 1; }
-  75%  { opacity: 1; transform: scale(1); }
-  100% { opacity: 0; transform: scale(1.12); } }
-@keyframes ldGrow {
-  0%   { opacity: 0; transform: scale(.34); }
-  15%  { opacity: 1; }
-  72%  { opacity: 1; transform: scale(.9); }
-  100% { opacity: 0; transform: scale(.97); } }
-@keyframes ldTree {
-  0%   { opacity: 0; transform: scale(.91); }
-  40%  { opacity: 1; }
-  100% { opacity: 1; transform: scale(1); } }
-@keyframes ldBubbles {
-  0%   { opacity: 0; transform: translateY(calc(var(--u) * 14)); }
-  100% { opacity: 1; transform: translateY(0); } }
-@keyframes ldFade { from { opacity: 0; } to { opacity: 1; } }
-@keyframes ldTwinkle {
-  0%, 100% { opacity: 0; transform: scale(.3) rotate(0); }
-  50%      { opacity: .95; transform: scale(1) rotate(45deg); } }
-@keyframes ldBurst {
-  0%   { opacity: 0; transform: translate(0, 0) scale(.3); }
-  25%  { opacity: 1; }
-  100% { opacity: 0; transform: translate(calc(var(--u) * var(--dx)), calc(var(--u) * var(--dy))) scale(1); } }
+/* 中央：木 + NOW LOADING */
+.ld-corner { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); display: flex; flex-direction: column; align-items: center; }
+.ld-scene { --tw: clamp(130px, 15vw, 190px); position: relative; width: var(--tw); height: calc(var(--tw) * .79); }
+.ld-scene > * { position: absolute; }
+.ld-shadow { left: -8%; bottom: -5%; width: 116%; opacity: 0; }
+.ld-ripple { left: 50%; bottom: -3%; width: 90%; margin-left: -45%; opacity: 0; }
+.ld-drop { left: 50%; bottom: 2%; width: 7%; margin-left: -3.5%; opacity: 0; }
+.ld-trunk { left: 5.95%; top: 7.28%; width: 87.9%; clip-path: inset(100% 0 0 0); transform-origin: 50% 100%; }
+.ld-leaves { left: 0; top: 0; width: 100%; opacity: 0; transform: scale(0); transform-origin: 50% 72%; }
+.ld-bub { width: 9%; opacity: 0; }
+.ld-spk { width: 8%; opacity: 0; }
+
+.ld-play .ld-drop   { animation: ldDrop .62s cubic-bezier(.55,0,.9,.5) both; }
+.ld-play .ld-ripple { animation: ldRipple .9s ease-out .58s both; }
+.ld-play .ld-shadow { animation: ldFadeIn 1.4s ease-out 1s both; }
+.ld-play .ld-trunk  { animation: ldTrunk 1s cubic-bezier(.3,.7,.3,1) .7s both; }
+.ld-play .ld-leaves { animation: ldLeaves .95s cubic-bezier(.3,1.5,.5,1) 1.3s both, ldSway 3.6s ease-in-out 2.3s infinite; }
+.ld-play .ld-bub    { animation: ldBub 2.6s ease-in-out var(--t) infinite; }
+.ld-play .ld-spk    { animation: ldSpk 1.8s ease-in-out var(--t) infinite; }
+
+@keyframes ldDrop { 0% { opacity: 0; transform: translateY(-150px); } 15% { opacity: 1; } 92% { opacity: 1; transform: translateY(0) scaleY(1.15); } 100% { opacity: 0; transform: translateY(2px) scale(1.5, .3); } }
+@keyframes ldRipple { 0% { opacity: 0; transform: scale(.1); } 20% { opacity: 1; } 100% { opacity: 0; transform: scale(1); } }
+@keyframes ldFadeIn { to { opacity: 1; } }
+@keyframes ldTrunk { 0% { clip-path: inset(100% 0 0 0); transform: scale(.9, .6); } 100% { clip-path: inset(0 0 0 0); transform: none; } }
+@keyframes ldLeaves { 0% { opacity: 0; transform: scale(0) rotate(-6deg); } 40% { opacity: 1; } 100% { opacity: 1; transform: scale(1) rotate(0); } }
+@keyframes ldSway { 0%, 100% { opacity: 1; transform: rotate(0); } 50% { opacity: 1; transform: rotate(1.4deg) translateX(1px); } }
+@keyframes ldBub { 0% { opacity: 0; transform: translateY(6px) scale(.4); } 25% { opacity: 1; transform: translateY(0) scale(1); } 80% { opacity: .9; } 100% { opacity: 0; transform: translateY(-26px) scale(1.05); } }
+@keyframes ldSpk { 0%, 100% { opacity: 0; transform: scale(.2) rotate(0); } 50% { opacity: 1; transform: scale(1) rotate(60deg); } }
+
+.ld-label { margin-top: .9rem; font: 700 .82rem/1 "Quicksand", sans-serif; letter-spacing: .26em; color: var(--peri-deep); white-space: nowrap; }
+.ld-label span { display: inline-block; animation: ldHop 1.4s ease-in-out infinite; animation-delay: calc(var(--i) * .07s); }
+.ld-label .dot { color: var(--aqua-deep); }
+@keyframes ldHop { 0%, 60%, 100% { transform: translateY(0); } 25% { transform: translateY(-5px); } }
+
+@keyframes ldIn { from { opacity: 0; transform: translateY(-8px); } }
+
+/* 退場：斜めのカラーバンドが横切る */
+.ld-wipe { position: fixed; top: 0; bottom: 0; left: 0; z-index: 9999; width: 200vw; display: flex; pointer-events: none;
+  transform: translateX(calc(100vw + 40vh)); animation: ldWipe 1s cubic-bezier(.65,0,.35,1) forwards; }
+.ld-wipe i { flex: 1; transform: skewX(-18deg); margin: 0 -1px; }
+.ld-wipe i:nth-child(1) { background: var(--aqua); flex: .5; }
+.ld-wipe i:nth-child(2) { background: var(--mint); flex: .35; }
+.ld-wipe i:nth-child(3) { background: #fff; flex: 1.6; }
+.ld-wipe i:nth-child(4) { background: var(--lav); flex: .35; }
+.ld-wipe i:nth-child(5) { background: var(--pink); flex: .5; }
+@keyframes ldWipe { to { transform: translateX(calc(-200vw - 40vh)); } }
 
 @media (prefers-reduced-motion: reduce) {
-  #loader.ld-play .ld-base > * { animation: none !important; }
-  #loader.ld-play .ld-tree, #loader.ld-play .ld-bubbles, #loader.ld-play .ld-shadow { opacity: 1; }
+  #loader *, #loader::before { animation-duration: .01s !important; animation-iteration-count: 1 !important; animation-delay: 0s !important; }
+  .ld-wipe { animation: none; display: none; }
 }
 </style>
 <script>
@@ -305,19 +295,28 @@ html.ld-skip #loader { display: none; }
 </script>
 </head>
 <body>
-<div id="loader" aria-hidden="true">
-  <div class="ld-base">
-    <img class="ld-shadow" src="img/loader/shadow.webp" alt="">
-    <img class="ld-ripple" src="img/loader/ripple.webp" alt="">
-    <img class="ld-ripple r2" src="img/loader/ripple.webp" alt="">
-    <img class="ld-sprout" src="img/loader/sprout.webp" alt="">
-    <img class="ld-sapling" src="img/loader/sapling.webp" alt="">
-    <img class="ld-grow" src="img/loader/grow.webp" alt="">
-    <img class="ld-tree" src="img/loader/tree.webp" alt="">
-    <img class="ld-bubbles" src="img/loader/bubbles.webp" alt="">
-    <img class="ld-drop" src="img/loader/drop.webp" alt="">
+<div id="loader" aria-live="polite" aria-label="Loading">
+  <div class="ld-brand">
+    <span class="ld-brand-mark">WH</span>
+    <div><div class="ld-brand-name">Wang Haixin</div><div class="ld-brand-sub">ACADEMIC PROFILE</div></div>
   </div>
-  <span class="ld-skip-btn">SKIP ›</span>
+  <div class="ld-corner" aria-hidden="true">
+    <div class="ld-scene">
+      <img class="ld-shadow" src="img/loader/shadow.webp" alt="">
+      <img class="ld-ripple" src="img/loader/ripple.webp" alt="">
+      <img class="ld-trunk" src="img/loader/trunk.webp" alt="">
+      <img class="ld-leaves" src="img/loader/leaves.webp" alt="">
+      <img class="ld-bub" src="img/loader/bubble-aqua.webp" alt="" style="left:20%;top:30%;--t:2.3s">
+      <img class="ld-bub" src="img/loader/bubble-pink.webp" alt="" style="left:66%;top:20%;--t:2.9s">
+      <img class="ld-bub" src="img/loader/bubble-lav.webp" alt="" style="left:44%;top:6%;--t:3.5s">
+      <img class="ld-bub" src="img/loader/bubble-aqua.webp" alt="" style="left:80%;top:44%;--t:4.1s">
+      <img class="ld-spk" src="img/loader/spark-aqua.webp" alt="" style="left:-6%;top:22%;--t:1.6s">
+      <img class="ld-spk" src="img/loader/spark-pink.webp" alt="" style="left:98%;top:12%;--t:2.2s">
+      <img class="ld-spk" src="img/loader/spark-lav.webp" alt="" style="left:8%;top:-4%;--t:2.8s">
+      <img class="ld-drop" src="img/loader/drop.webp" alt="">
+    </div>
+    <div class="ld-label"><span style="--i:0">N</span><span style="--i:1">O</span><span style="--i:2">W</span>&nbsp;<span style="--i:4">L</span><span style="--i:5">O</span><span style="--i:6">A</span><span style="--i:7">D</span><span style="--i:8">I</span><span style="--i:9">N</span><span style="--i:10">G</span><span class="dot" style="--i:12">.</span><span class="dot" style="--i:13">.</span><span class="dot" style="--i:14">.</span></div>
+  </div>
 </div>
 <div class="bubbles" aria-hidden="true">
   <span style="width:86px;height:86px;left:5%;animation-duration:26s;animation-delay:-4s"></span>
@@ -715,63 +714,42 @@ createApp({
 
 </script>
 <script>
-/* ===== Loader: ひとしずくの木 ===== */
+/* ===== Loader (NOW LOADING) ===== */
 (function () {
-  var el = document.getElementById('loader');
-  var root = document.documentElement;
+  var el = document.getElementById('loader'), root = document.documentElement;
   if (!el) return;
   if (root.classList.contains('ld-skip')) { el.remove(); return; }
 
-  var base = el.querySelector('.ld-base');
-  var colors = ['aqua', 'lav', 'pink', 'white'];
-  function rnd(a, b) { return a + Math.random() * (b - a); }
-  function spark(cls, vars) {
-    var img = new Image();
-    img.className = 'ld-spark' + (cls ? ' ' + cls : '');
-    img.alt = '';
-    img.src = 'img/loader/spark-' + colors[Math.floor(Math.random() * 4)] + '.webp';
-    for (var k in vars) img.style.setProperty('--' + k, vars[k]);
-    base.appendChild(img);
-  }
-  // 着地のキラキラ（波紋から外へ散る）
-  for (var i = 0; i < 12; i++) {
-    var a = Math.PI * (1.05 + i / 11 * 0.9), r = rnd(160, 300);
-    spark('burst', { x: -11, y: -32, s: rnd(14, 24).toFixed(0), t: (1 + rnd(0, .25)).toFixed(2) + 's',
-      dx: (Math.cos(a) * r).toFixed(0), dy: (Math.sin(a) * r * .55).toFixed(0) });
-  }
-  // まわりで瞬くキラキラ
-  for (var j = 0; j < 22; j++) {
-    spark('', { x: rnd(-760, 740).toFixed(0), y: rnd(-820, -40).toFixed(0), s: rnd(14, 30).toFixed(0),
-      t: rnd(1, 4.2).toFixed(2) + 's', d: rnd(1.4, 2.4).toFixed(2) + 's' });
-  }
 
-  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var DURATION = reduce ? 1200 : 5000;
-  var done = false, timer;
+  var MIN = 3200, MAX = 8000, t0 = performance.now(), loaded = document.readyState === 'complete', done = false;
+  window.addEventListener('load', function () { loaded = true; });
+  requestAnimationFrame(function () { el.classList.add('ld-play'); });
+
+  function tick() {
+    if (done) return;
+    var t = performance.now() - t0;
+    var p = Math.min(t / MIN, loaded ? 1 : 0.9);
+    if ((p >= 1 && t >= MIN) || t >= MAX) return finish();
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
 
   function finish() {
     if (done) return; done = true;
-    clearTimeout(timer);
     try { sessionStorage.setItem('ldSeen', '1'); } catch (e) {}
-    el.classList.add('ld-out');
-    root.classList.remove('ld-on');
-    setTimeout(function () { el.remove(); }, 800);
+    var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce) { el.remove(); root.classList.remove('ld-on'); return; }
+    setTimeout(function () {
+      var w = document.createElement('div');
+      w.className = 'ld-wipe';
+      w.innerHTML = '<i></i><i></i><i></i><i></i><i></i>';
+      document.body.appendChild(w);
+      setTimeout(function () { el.remove(); root.classList.remove('ld-on'); }, 500); // バンドが画面を覆った瞬間に切替
+      setTimeout(function () { w.remove(); }, 1100);
+    }, 250);
   }
-  function play() {
-    if (el.classList.contains('ld-play')) return;
-    el.classList.add('ld-play');
-    timer = setTimeout(finish, DURATION);
-  }
-
   el.addEventListener('click', finish);
-  window.addEventListener('keydown', function (e) { if (!done && (e.key === 'Escape' || e.key === 'Enter' || e.key === ' ')) finish(); });
-
-  // 部品画像の読み込みを待ってから再生（最大2.5秒で見切り発車）
-  var imgs = Array.prototype.slice.call(el.querySelectorAll('img'));
-  Promise.all(imgs.map(function (im) {
-    return im.decode ? im.decode().catch(function () {}) : Promise.resolve();
-  })).then(play);
-  setTimeout(play, 2500);
+  window.addEventListener('keydown', function (e) { if (e.key === 'Escape' || e.key === 'Enter' || e.key === ' ') finish(); });
 })();
 </script>
 </body>
